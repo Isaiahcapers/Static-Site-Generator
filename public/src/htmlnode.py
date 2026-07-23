@@ -11,7 +11,6 @@ class HTMLNode:
     def props_to_html(self):
         if self.props is None:
             return ""
-
         result = ""
         for key, value in self.props.items():
             string = (f' {key}="{value}"') 
@@ -46,3 +45,9 @@ class ParentNode(HTMLNode):
         if self.children is None:
             raise ValueError("ParentNode must have children")
         else: 
+            child_html = ""
+            for child in self.children:
+                child_html += child.to_html()
+                
+            return f"<{self.tag}{self.props_to_html()}>{child_html}</{self.tag}>"
+
